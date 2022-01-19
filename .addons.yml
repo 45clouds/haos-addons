@@ -1,0 +1,7 @@
+---
+channel: stable
+addons:
+  modbus:
+    repository: haos-addons/addon-modbus
+    target: modbus
+    image: ghcr.io/haos-addons/modbus/{arch}
