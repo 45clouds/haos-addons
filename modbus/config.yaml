@@ -1,0 +1,40 @@
+version: 1.0.0
+slug: modbus
+name: Modbus & SSH
+description: Allow logging in remotely to Home Assistant using SSH and installs modbus via usb
+url: https://github.com/45clouds/haos-addons/tree/master/modbus
+advanced: true
+arch:
+  - amd64
+audio: true
+hassio_api: true
+hassio_role: manager
+host_dbus: true
+image: homeassistant/{arch}-addon-ssh
+ingress: true
+init: false
+map:
+  - config:rw
+  - ssl:rw
+  - addons:rw
+  - share:rw
+  - backup:rw
+  - media:rw
+options:
+  apks: []
+  authorized_keys: []
+  password: ""
+  server:
+    tcp_forwarding: false
+ports:
+  22/tcp: null
+schema:
+  apks:
+    - str
+  authorized_keys:
+    - str
+  password: password
+  server:
+    tcp_forwarding: bool
+startup: services
+uart: true
