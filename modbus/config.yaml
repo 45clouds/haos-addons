@@ -1,17 +1,16 @@
 version: 1.0.0
 slug: modbus
-name: Modbus & SSH
-description: Allow logging in remotely to Home Assistant using SSH and installs modbus via usb
+name: Modbus (USB local port)
+description: This addon allows you to communicate local USB device with MQTT server.
 url: https://github.com/45clouds/haos-addons/tree/master/modbus
-advanced: true
+advanced: false
 arch:
   - amd64
-audio: true
-hassio_api: true
+audio: false
+hassio_api: false
 hassio_role: manager
 host_dbus: true
-image: homeassistant/{arch}-addon-ssh
-ingress: true
+ingress: false
 init: false
 map:
   - config:rw
@@ -21,20 +20,14 @@ map:
   - backup:rw
   - media:rw
 options:
-  apks: []
-  authorized_keys: []
-  password: ""
-  server:
-    tcp_forwarding: false
-ports:
-  22/tcp: null
+  usbport: /dev/serial/by-id/usb-1a86_USB2.0-Serial-if00-port0
+  mqtthost: 10.0.255.10
+  mqttuser: 
+  mqttpassword: 
 schema:
-  apks:
-    - str
-  authorized_keys:
-    - str
-  password: password
-  server:
-    tcp_forwarding: bool
+  usbport: str
+  mqtthost: str
+  mqttuser: str
+  mqttpassword: password
 startup: services
 uart: true

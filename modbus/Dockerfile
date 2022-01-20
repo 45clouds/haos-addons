@@ -2,21 +2,15 @@ ARG BUILD_FROM
 FROM $BUILD_FROM
 
 # Setup base
-ARG LIBWEBSOCKETS_VERSION
-ARG TTYD_VERSION
 RUN \
     set -x \ 
     && apk add --no-cache \
         bash-completion \
-        pulseaudio-utils \
-        alsa-plugins-pulse \
         git \
         libuv \
         mosquitto-clients \
         nano \
-        openssh \
         pwgen \
-        tmux \
         vim \
         joe \
         mc \
@@ -38,42 +32,11 @@ RUN \
     \
     && sed -i "s/ash/bash/" /etc/passwd \
     \
-    && git clone --branch "v${LIBWEBSOCKETS_VERSION}" --depth=1 \
-        https://github.com/warmcat/libwebsockets.git /tmp/libwebsockets \
-    \
-    && mkdir -p /tmp/libwebsockets/build \
-    && cd /tmp/libwebsockets/build \
-    && cmake .. \
-        -DCMAKE_BUILD_TYPE=MinSizeRel \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_VERBOSE_MAKEFILE=TRUE \
-        -DLWS_IPV6=ON \
-        -DLWS_STATIC_PIC=ON \
-        -DLWS_UNIX_SOCK=OFF \
-        -DLWS_WITH_LIBUV=ON \
-        -DLWS_WITH_SHARED=ON \
-        -DLWS_WITHOUT_TESTAPPS=ON \
-    && make \
-    && make install \
-    \
     && git clone --branch main --single-branch \
-        https://github.com/tsl0922/ttyd.git /tmp/ttyd \
-    && git -C /tmp/ttyd checkout "${TTYD_VERSION}" \
+         https://github.com/45clouds/isystem.git /tmp/isystem \
     \
-    && mkdir -p /tmp/ttyd/build \
-    && cd /tmp/ttyd/build \
-    && cmake .. \
-        -DCMAKE_BUILD_TYPE=MinSizeRel \
-        -DCMAKE_INSTALL_PREFIX=/usr \
-        -DCMAKE_VERBOSE_MAKEFILE=TRUE \
-    && make \
-    && make install \
-    \
-    &&git clone --branch main --single-branch \
-       https://github.com/45clouds/isystem.git /opt/isystem \
-    \
-    && cd /opt/isystem
-    && python3 setup.py install
+    && cd /tmp/isystem \
+    && python3 setup.py install \
     \
     && apk del --no-cache --purge .build-dependencies \
     && rm -f -r \

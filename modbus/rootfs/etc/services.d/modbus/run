@@ -1,14 +1,16 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Start sshd service if enabled
+# Start modbus service if enabled
 # ==============================================================================
 
-# If SSH is disabled, use a fake sleep process
-if ! bashio::var.has_value "$(bashio::addon.port 22)"; then
-    bashio::log.warning "SSH port is disabled. Prevent start of SSH server." 
-    exec sleep infinity
-fi
+USBPORT=$(bashio::config 'usbport')
+MQTTHOST=$(bashio::config 'mqtthost')
+MQTTUSER=$(bashio::config 'mqttuser')
+MQTTPASSWORD=$(bashio::config 'mqttpassword')
 
 bashio::log.info "Starting the Modbus daemon..."
-exec /usr/local/bin/poll_isystem_mqtt.py 10.0.255.10
-
+bashio::log.info "USB port is.........: ${USBPORT}"
+bashio::log.info "MQTT host is........: ${MQTTHOST}"
+bashio::log.info "MQTT user is........: ${MQTTUSER}"
+bashio::log.info "MQTT password is....: ${MQTTPASSWORD}"
+exec /usr/bin/poll_isystem_mqtt.py --serial ${USBPORT} --user ${MQTTUSER} --password ${MQTTPASSWORD} ${MQTTHOST}
