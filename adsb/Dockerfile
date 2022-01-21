@@ -2,7 +2,7 @@ FROM thomx/fr24feed-piaware:1.7.0
 
 # add bashio (thx https://github.com/hassio-addons/addon-debian-base/blob/main/base/Dockerfile#L47)
 ADD https://github.com/hassio-addons/bashio/archive/v0.13.0.tar.gz  /tmp/bashio.tar.gz
-RUN apt-get update && apt-get install -y curl jq && mkdir /tmp/bashio \
+RUN apt-get update && apt-get install -y curl jq mc lsof && mkdir /tmp/bashio \
     && tar zxvf \
         /tmp/bashio.tar.gz \
         --strip 1 -C /tmp/bashio \

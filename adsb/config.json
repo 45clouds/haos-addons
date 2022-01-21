@@ -2,10 +2,10 @@
   "name": "ADS-B Multi-Portal Feeder",
   "version": "0.1.32",
   "stage": "experimental",
-  "ximage": "maxwinterstein/homeassistant-addon-adsbmultiportalfeeder-{arch}",
-  "slug": "adsb-multi-portal-feeder",
+  "ximage": "maxwinterstein/homeassistant-addon-adsb-{arch}",
+  "slug": "adsb",
   "description": "Dump1090 based feeder for FlightRadar24 and FlightAware",
-  "url": "https://github.com/MaxWinterstein/homeassistant-addons/",
+  "url": "https://github.com/45clouds/haos-addons/",
   "ingress": true,
   "ingress_port": 8080,
   "panel_title": "ADS-B Feeder",
@@ -31,13 +31,13 @@
   "hassio_api": false,
   "usb": true,
   "ports": {
-    "8080/tcp": null,
-    "8754/tcp": null,
+    "8080/tcp": 8755,
+    "8754/tcp": 8754,
     "30001/tcp": null,
     "30002/tcp": null,
     "30003/tcp": null,
     "30004/tcp": null,
-    "30005/tcp": null
+    "30005/tcp": 30005
   },
   "ports_description": {
     "8080/tcp": "Dump1090 status site",
